@@ -47,6 +47,14 @@ class Projects extends React.Component {
   }
 
   UNSAFE_componentWillMount (){
+    const {navigation} = this.props;
+    const variablesTest = navigation.getParam('chihaja');
+    const variablesTest2 = navigation.getParam('chihaja2');
+     
+    if(variablesTest && variablesTest2){
+      this.setModalVisible(true);
+    }
+
     const newArray = [];
     var query = firebase.database().ref(`projects/`+firebase.auth().currentUser.uid).orderByKey();
     query.once("value")

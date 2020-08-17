@@ -40,8 +40,6 @@ export default class Login extends React.Component {
     }
   }
 
-  
-
   updateInputVal = (val, prop) => {
     const state = this.state;
     state[prop] = val;

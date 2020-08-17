@@ -391,12 +391,12 @@ const ForgotPasswordStack = createStackNavigator(
 const AppStack = createDrawerNavigator(     
   {
     // Inscription: {
-    //   screen: Inscription,
-    //   navigationOptions: ( { navigation } ) => ( {
-    //     drawerLabel: ( ) => { },
-    //     drawerLockMode: 'locked-closed',
-    //   }),
-    // },
+   // screen: Inscription,
+      // navigationOptions: ( { navigation } ) => ( {
+        // drawerLabel: ( ) => { },
+      //  drawerLockMode: 'locked-closed',
+      // }),
+    //  },
     Login: {
       screen: Login,
       navigationOptions: ( { navigation } ) => ( {

@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Blank Template",
-    "slug": "rn-first-app",
+    "name": "EYE METRIX",
+    "slug": "eye-metrix",
     "privacy": "public",
     "sdkVersion": "36.0.0",
     "platforms": [
@@ -24,7 +24,15 @@
       "**/*"
     ],
     "ios": {
+      "bundleIdentifier": "com.ieteria.eyemetrix",
+      "buildNumber": "1.0.0",
       "supportsTablet": true
+    },
+    "android": {
+      "package": "com.ieteria.eyemetrix",
+      "versionCode": 1
     }
   }
 }
+
+

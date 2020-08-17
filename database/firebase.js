@@ -2,16 +2,15 @@ import * as firebase from 'firebase';
 
 // Initialize Firebase
 const firebaseConfig = {
-    apiKey: "AIzaSyB9q2r23bTYYgtUAukwLFmlGx6rMGU0Hsk",
-      authDomain: "influx-aea76.firebaseapp.com",
-      databaseURL: "https://influx-aea76.firebaseio.com",
-      projectId: "influx-aea76",
-      storageBucket: "influx-aea76.appspot.com",
-      messagingSenderId: "1089509037498",
-      appId: "1:1089509037498:web:fff90159bcde4b163b7983",
-      measurementId: "G-2XLF5GR2PH"
-  };
+  apiKey: "AIzaSyAWU3M_UgykIIOoiVI5JhpEtyGXSvVE60s",
+  authDomain: "eyemetrix-274d6.firebaseapp.com",
+  databaseURL: "https://eyemetrix-274d6.firebaseio.com",
+  projectId: "eyemetrix-274d6",
+  storageBucket: "eyemetrix-274d6.appspot.com",
+  messagingSenderId: "658586210153",
+  appId: "1:658586210153:web:7cf2a2d2cacfa15c7277f8",
+  measurementId: "G-P8L9QRT51B"
+};
   
   firebase.initializeApp(firebaseConfig);
-
   export default firebase;

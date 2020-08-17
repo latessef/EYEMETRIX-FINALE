@@ -2,7 +2,7 @@ const COLORS = {
   DEFAULT: '#888888',
   BLUE: '#09599e',
   GRIS: '#595959',
-  PRIMARY: '#2da7b3',
+  PRIMARY: '#A9261C',
   LABEL: '#FE2472',
   INFO: '#2CA8FF',
   ERROR: '#FF3636',

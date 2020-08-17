@@ -1,6 +1,6 @@
 import React from "react";
-import { StyleSheet, Dimensions, View, ScrollView,ActivityIndicator, Alert,TouchableOpacity,Linking} from "react-native";
-import { Block, theme,Button as GaButton} from "galio-framework";
+import { StyleSheet, Dimensions, View, ScrollView,ActivityIndicator, Alert,TouchableOpacity,Linking,Image} from "react-native";
+import { Block, theme,Button as GaButton, Button} from "galio-framework";
 import { nowTheme } from '../constants';
 import firebase from "../database/firebase"
 import {
@@ -12,11 +12,13 @@ import 'moment/locale/fr';
 import Moment from 'moment';
 import {Text} from "galio-framework";
 import { array, element } from "prop-types";
+import Icon from '../components/Icon';
 import { BorderlessButton } from "react-native-gesture-handler";
+import {sendPushNotification} from "./Notifunction";
+
 const { width, height } = Dimensions.get("screen");
 
 
-var list = [{name : "cvv", population: 33, color: "red"},{name : "cvv", population: 100}];
 
 export class PieChartB extends React.Component{
   constructor (props){
@@ -25,11 +27,12 @@ export class PieChartB extends React.Component{
     this.state = {
         list : [{name : "", population: 0, legendFontColor: "transparent", color:"transparent"}],
         top5 : [],
-        colors : ["#25bfdf","#247fdf","#2500df","#243fdf","#247fdf","#B69E3E","#","#3D9970"],
+        colors : ["#B40501","#CC4B0F","#008412","#E4DF00","#68FF14","#C9472C","#C9472C","#3D9970"],
         weekDate : new Date(),
     }
   }
 
+  
   UNSAFE_componentWillMount = async () =>{
     this.week();
   }
@@ -54,7 +57,7 @@ export class PieChartB extends React.Component{
     var selected = Moment(toDay).subtract(1,"d").local("fr")
     var compt = "";
     var ArrayFlux = [];
-    var cmt = 0;
+    var cmt = 1;
     var i = 0;
     var query = await firebase.database().ref(`projects/`+firebase.auth().currentUser.uid).orderByKey();
       query.once("value")
@@ -66,12 +69,13 @@ export class PieChartB extends React.Component{
                 childSnapshot.child("daily").forEach((grindChildSnapshot) => {
                   for(let i = 1; i <= 7; i++){
                     compt = Moment(selected).add(i, "d").local().format("DD-MM-YYYY");
+                    
                     if(grindChildSnapshot != null && grindChildSnapshot.key === compt){
                       var flux = grindChildSnapshot.child("total").val();
-                        cmt = cmt + flux
+                        cmt = cmt + flux;
                     }
-                  }
-        
+
+                  }                      
                 });
               }
               var obj = {name : projectName, population : cmt, legendFontColor: "#7F7F7F", color : this.state.colors[i]}
@@ -136,17 +140,14 @@ export class PieChartB extends React.Component{
     //     // legendFontSize: 15
     //   },
     // ];
+
+     
+
+
     return(
       <Block >
-        <Block>
-          <View>
-            <Text  style={styles.TopfiveTitle} color={nowTheme.COLORS.BLACK}>top 5  </Text>
-            <TouchableOpacity onPress={() => Linking.openURL('maps://app?saddr=Cupertino&S100.123+101.222')}>
-             <Text>Navigate</Text>
-          </TouchableOpacity>
-          
-  
-          </View>
+         
+         <Block>
           {this.state.top5.map((item, index) => (
             <View  key={index} >
                <Text style={styles.Topfive}>
@@ -164,11 +165,11 @@ export class PieChartB extends React.Component{
           imageSize={40}
           indicatorColor={nowTheme.COLORS.PRIMARY}
           easing={Loading.EasingType.ease}
-        />
-        <Block flex style={styles.View}>
+         />
+         <Block flex style={styles.View}>
           <PieChart
               data={data}
-              width={width * 0.96}
+              width={width * 0.95}
               height={220}
               chartConfig={{
                   backgroundColor: "white",
@@ -195,6 +196,7 @@ export class PieChartB extends React.Component{
           // absolute
         />
       </Block>
+        
     </Block>
     );
   }
@@ -225,9 +227,14 @@ export default class Home extends React.Component {
     this.state={
       type : '',
       list : [],
+
     }
   }
   
+
+  addNewProject = (navigation) =>{
+     navigation.push('Projects',{chihaja : true, chihaja2 : true});
+  }
   UNSAFE_componentWillMount(){
     this.focusListener = this.props.navigation.addListener('didFocus', () => {
       firebase.database().ref(`users/`+firebase.auth().currentUser.uid+`/type`).on('value', snapshot => {
@@ -237,27 +244,48 @@ export default class Home extends React.Component {
       });
     });
   }
+
+   EmptyDisplay(navigation) {
+    return (<View>
+    <Image  source={require('../assets/imgs/ghost2.png')} style={styles.ImageSize} />
+    <View center>
+       <Text style={styles.Title} > OOPSSSS !</Text>
+        <Text style={styles.message}> You need to add your new project</Text>
+        <Button style={styles.ButtonStyle}  onPress={() => this.addNewProject(navigation)}> Add your project</Button>
+     </View></View>);
+  }
+  
+   Top5Display() {
+    return (<Text  style={styles.TopfiveTitle} color={nowTheme.COLORS.BLACK}>top 5</Text>);
+     {/* <Block> <Text  style={styles.TopfiveTitle} color={nowTheme.COLORS.BLACK}>top 5</Text>
+      <ScrollView> <Block >
+         <PieChartB />
+      </Block> </ScrollView>
+    </Block> */}
+      
+  }
+  isEmpty(navigation){
+     if(this.top5 === []){
+        return (<View>{this.EmptyDisplay(navigation)}</View>);
+     }else{
+       return (<View>{this.Top5Display()}</View>);
+     }
+  }
+
+  
   componentWillUnmount() {
     this.focusListener.remove();
   }
   render() {
     const { navigation } = this.props;
     // if(this.state.type === "admin" ){
+
+    
       return (
         
-        <Block flex style = {{height: height * 0.82, flexDirection:'column'}}>
-        <ScrollView>
-          <Block center>
-              <PieChartB />
-              {/* <Block>
-                  <PieChartB/>
-              </Block>
-              <Block row style = {{ justifyContent : "space-between",flex: 1,flexDirection:"row",justifyContent:'space-between'}} >
-                
-              </Block>   */}
-              {/* <Admin/> */}
-              </Block>
-          </ScrollView>
+        <Block flex style = {{height: height * 0.82, flexDirection:'column'}}>    
+         <View>{ this.isEmpty(navigation)}</View>
+         <Button onPress={() => sendPushNotification('ExponentPushToken[PMhqiEL6lxHaC9wB7lBihw]')}> Send </Button>
         </Block> 
       );
     // }else{
@@ -318,8 +346,34 @@ const styles = StyleSheet.create({
      fontSize: 18,
      backgroundColor:'transparent',
      backgroundColor:'#fff',
-     color: '#2da7b352',
+     color: '#a9261cb8',
      fontFamily: 'montserrat-regular',
-   }
+   },
+   ImageSize:{
+    margin:40,
+    alignSelf:"center",
+    width : width/1.5,
+    height: width/1.5,
+   },
+   message:{
+     fontFamily: 'montserrat-regular',
+     fontSize: 16,
+     padding:15,
+     alignSelf:"center",
+   },
+   Title:{
+    fontFamily: 'montserrat-regular',
+    color : nowTheme.COLORS.BLACK,
+    fontWeight: "bold",
+    padding:3,
+    alignSelf:"center",
+    fontSize:18,
+    textTransform: 'uppercase',
+   },
+   ButtonStyle:{
+    alignSelf:'center',
+    width:width/1.3,
+   },
+
 });
 

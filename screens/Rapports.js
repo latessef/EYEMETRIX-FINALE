@@ -164,7 +164,7 @@ class Rapports extends React.Component {
               <View>
                 <LineChartB abscisse  = 'Hebdomadaire'  _id={_id}/>
                 <Block>
-                  <WeeklyButton/>
+                  <WeeklyButtong/>
                 </Block>
               </View>
             )}
