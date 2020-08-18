@@ -5,7 +5,7 @@ import {
   View, TouchableOpacity, Alert,TextInput, TouchableWithoutFeedback
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Block,Text} from 'galio-framework';
+import { Block,Text, Button} from 'galio-framework';
 
 import Icon from './Icon';
 import Input from './Input';
@@ -121,7 +121,7 @@ class PasswordChange extends React.Component {
                                   borderWidth: 1,
                                   paddingBottom: 10,
                                   borderColor: '#E3E3E3',
-                                  borderRadius: 30, 
+                                  borderRadius: 5, 
                                   backgroundColor: 'white',
                                   }}>
                     <Icon
@@ -160,7 +160,7 @@ class PasswordChange extends React.Component {
                               borderWidth: 1,
                               paddingBottom: 10,
                               borderColor: this.state.PasswordSucces ? '#E3E3E3' : this.state.colorBorder,
-                              borderRadius: 21.5, 
+                              borderRadius: 5, 
                               backgroundColor: 'white',
                               marginTop: 10}}>
                       <Icon
@@ -201,7 +201,7 @@ class PasswordChange extends React.Component {
                                 borderWidth: 1,
                                 paddingBottom: 10,
                                 borderColor: this.state.PasswordSucces ? '#E3E3E3' : this.state.colorBorder,
-                                borderRadius: 21.5, 
+                                borderRadius: 5, 
                                 backgroundColor: 'white',
                                 marginTop: 10}}>
                       <Icon
@@ -237,18 +237,16 @@ class PasswordChange extends React.Component {
                     </View> 
                  </Block>    
                  <View style={{  justifyContent: "center", alignItems: "center", marginTop:20}}>
-                    <TouchableOpacity color="transparent" round style={{alignItems: "center"}}
-                               onPress={()=> {this.onChangePasswordPress();}} >
-                        <LinearGradient
-                            colors={[nowTheme.COLORS.PRIMARY, nowTheme.COLORS.TEXT]}
-                            style={{ padding: 15, alignItems: 'center', borderRadius: 25, width:150}}>
-                              <Text
-                                style={{ fontFamily: 'montserrat-bold' }}
-                                size={12}
-                                color={nowTheme.COLORS.WHITE}
-                              >
-                                  Valider
-                              </Text>
+                    <Button style={styles.ButtonStyle}  
+                        onPress={() => {this.onChangePasswordPress();}} > 
+                        <Text
+                        style={{ fontFamily: 'montserrat-bold' }}
+                        size={14}
+                        color={nowTheme.COLORS.WHITE}
+                      >
+                          Valider
+                      </Text> 
+                    </Button>
                             <Loading 
                               ref="loading"
                               backgroundColor='transparent'
@@ -257,9 +255,7 @@ class PasswordChange extends React.Component {
                               imageSize={40}
                               indicatorColor={nowTheme.COLORS.PRIMARY}
                               easing={Loading.EasingType.ease}
-                            />
-                          </LinearGradient>
-                    </TouchableOpacity>
+                            />        
                 </View> 
     </View>         
     );
@@ -270,8 +266,17 @@ const styles = StyleSheet.create({
   inputs: {
     borderWidth: 1,
     borderColor: '#E3E3E3',
-    borderRadius: 21.5
+    borderRadius: 5
   },
+  ButtonStyle:{
+    marginTop:5,
+    alignSelf:'center',
+    height: nowTheme.SIZES.BASE * 3,
+    shadowRadius: 0,
+    shadowOpacity: 0,
+    borderRadius: 5,
+    width: width* 0.5
+   },
 });
 
 export default PasswordChange;

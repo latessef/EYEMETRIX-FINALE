@@ -105,7 +105,7 @@ class Header extends React.Component {
       //   ];
       case 'Profile':
         return [
-          <HomeButton key="profile" navigation={navigation} isWhite={white} />,
+          <HomeButton key="profile" navigation={navigation} isWhite={true} />,
         ];
       case 'Projects':
         return [
@@ -113,7 +113,7 @@ class Header extends React.Component {
         ];
       case 'Account':
         return [
-          <HomeButton key="register" navigation={navigation} isWhite={white} />,
+          <HomeButton key="register" navigation={navigation} isWhite={true} />,
         ];
       case 'Settings':
         return [

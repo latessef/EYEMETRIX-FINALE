@@ -16,8 +16,8 @@ export const BarchartPerHour = (table,maxPeople,date,hoursTable) => {
          var height = (val*35)/pas;
          height = height === 0 ? 0 : height+4;
          var p = val === 0 ? '' : val;
-         var color = '#ed7d31';
-         if(hoursTable.includes(i)){ color = '#305982'}
+         var color = '#A9261C';
+         if(hoursTable.includes(i)){ color = '#363636'}
          values = values+`<tr class="qtr" id="q${i}">
                           <th scope="row">`+(i === 0 ? '00': i)+`h</th>
                           <td class="sent bar" style="height: ${height}px; background-color: ${color};"><p style="font-size:50%;">${p}</p></td>
@@ -128,10 +128,10 @@ export const BarchartPerHour = (table,maxPeople,date,hoursTable) => {
                                 color: #000;
                             }
                             #q-graph .bar p {
-                                margin: 3px 0 0; 
+                                margin: -10px 0 0; 
                                 padding: 0;
-                                opacity: .4;
-                                color: white;
+                                /*opacity: .4;*/
+                                color: black;
                                 font-weight: bold;
                             }
                             #q-graph .sent {

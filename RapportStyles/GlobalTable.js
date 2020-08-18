@@ -21,7 +21,7 @@ export const GlobalTable = (employes,entry,OutBis) => {
                       <td></td>
                   </tr>
                   <tr>
-                      <th style="font-size:10px;">Accés hors horaires du tarvail</th>
+                      <th style="font-size:10px;">Accés hors horaires de travail</th>
                       <td style="font-size:10px;">${OutBis.length}</td>
                       <td>
                       `

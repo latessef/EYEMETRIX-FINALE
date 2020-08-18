@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, View, Dimensions,TouchableOpacity, Alert,Modal } from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
-import { Block, Text } from 'galio-framework';
+import { Block, Text, Button } from 'galio-framework';
 import  Input  from './Input';
 
 import Icon from './Icon';
@@ -84,7 +84,7 @@ class NameChange extends React.Component {
                       size={16}
                       color="#ADB5BD"
                       name="user"
-                      family="AntDesign"
+                      family="Entypo"
                       style={styles.inputIcons}
                   />
                 }
@@ -93,31 +93,25 @@ class NameChange extends React.Component {
               />
             </Block>
             <View style={{  justifyContent: "center", alignItems: "center", marginTop:20}}>
-                <TouchableOpacity color="transparent" round style={{alignItems: "center"}}
-                             onPress={() => {
-                               this.userUpdate();
-                               }}>
-                      <LinearGradient
-                            colors={[nowTheme.COLORS.PRIMARY, nowTheme.COLORS.TEXT]}
-                            style={{ padding: 15, alignItems: 'center', borderRadius:25, width:150}}>
-                            <Text
-                              style={{ fontFamily: 'montserrat-bold' }}
-                              size={12}
-                              color={nowTheme.COLORS.WHITE}
-                            >
-                             Modifier
-                            </Text>
-                          <Loading 
-                              ref="loading"
-                              backgroundColor='transparent'
-                              borderRadius={5}
-                              size={70}
-                              imageSize={40}
-                              indicatorColor={nowTheme.COLORS.PRIMARY}
-                              easing={Loading.EasingType.ease}
-                          />
-                      </LinearGradient>
-                 </TouchableOpacity>
+            <Button style={styles.ButtonStyle}  
+                    onPress={() => {this.userUpdate();}} > 
+                    <Text
+                    style={{ fontFamily: 'montserrat-bold' }}
+                    size={14}
+                    color={nowTheme.COLORS.WHITE}
+                   >
+                      Ajouter
+                   </Text> 
+            </Button>
+                <Loading 
+                    ref="loading"
+                    backgroundColor='transparent'
+                    borderRadius={5}
+                    size={70}
+                    imageSize={40}
+                    indicatorColor={nowTheme.COLORS.PRIMARY}
+                    easing={Loading.EasingType.ease}
+                />
               </View>
         </View>
     );
@@ -129,12 +123,21 @@ const styles = StyleSheet.create({
   inputs: {
     borderWidth: 1,
     borderColor: '#E3E3E3',
-    borderRadius: 21.5
+    borderRadius: 5
   },
   inputIcons: {
     marginRight: 12,
     color: nowTheme.COLORS.ICON_INPUT
   },
+  ButtonStyle:{
+    marginTop:5,
+    alignSelf:'center',
+    height: nowTheme.SIZES.BASE * 3,
+    shadowRadius: 0,
+    shadowOpacity: 0,
+    borderRadius: 5,
+    width: width* 0.5
+   },
 });
 
 export default NameChange;

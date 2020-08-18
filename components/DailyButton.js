@@ -134,8 +134,10 @@ class DailyButton extends React.Component {
           var jour = name.charAt(0).toUpperCase() + name.slice(1);
           //** */ 
           var query = await firebase.database().ref(`projects/`+firebase.auth().currentUser.uid+`/`+projet+'/calendrierBusiness/Horaires/').orderByKey();
-            query.once("value")
-            .then((snapshot) => {
+            query.on("value", snapshot => {
+              this.setState({
+                HoursTable : []
+              });
               snapshot.forEach((childSnapshot) => {
                 if(childSnapshot.key === jour){
                   // recuperer les horaires de travail pour chaque jour (debut et fin)
@@ -175,10 +177,10 @@ class DailyButton extends React.Component {
   // Recuperer  les employés avec leurs premieres entrees et dernieres sorties
   getTableEmployes = () => {
     const { date, projet } = this.props;
-    const newArray = [];
+    var newArray = [];
     var query = firebase.database().ref(`projects/`+firebase.auth().currentUser.uid+'/'+projet+'/Employes/'+date+'/').orderByKey();
-    query.once("value")
-      .then((snapshot) => {
+    query.on("value", snapshot => {
+        newArray = [];
         snapshot.forEach((childSnapshot) => {
           var key = childSnapshot.key;
           var FirstEntry = childSnapshot.child('FirstEntry').val();
@@ -204,10 +206,10 @@ class DailyButton extends React.Component {
  // les entrants hors horaires de travail
   getOutBisEntry = () => {
     const { date, projet } = this.props;
-    const newArray = [];
+    var newArray = [];
     var query = firebase.database().ref(`projects/`+firebase.auth().currentUser.uid+'/'+projet+'/AccesOutOfBis/'+date+'/').orderByKey();
-    query.once("value")
-      .then((snapshot) => {
+    query.on("value", snapshot => {
+        newArray = [];
         snapshot.forEach((childSnapshot) => {
           var key = childSnapshot.key;
           var Entry = 'à '+childSnapshot.val();

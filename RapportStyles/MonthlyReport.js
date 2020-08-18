@@ -1,11 +1,12 @@
 import Moment from 'moment';
 import 'moment/locale/fr';
+import { logo64 } from './LogoBase64';
 
 
 export const MonthlyReport = (date,Nom,
                             BarchartPerMonth,
                             BarchartPerMonthStyles,
-                            tableEmployes, GlobalTable,logo) => `
+                            tableEmployes, GlobalTable) => `
     <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -21,13 +22,13 @@ export const MonthlyReport = (date,Nom,
                 font-size: 16px;
                 color: 'black';
             }
-            h1 {
-                text-align: center;
-                color: #1F3864;
-            }
             h2 {
+                text-align: center;
+                color: #A9261C;
+            }
+            h3 {
               text-align: center;
-              color: #595959;
+              color: #363636;
           }
           
             .bodyLineChart {
@@ -81,8 +82,8 @@ export const MonthlyReport = (date,Nom,
             .tr-employes:nth-child(even){background-color: #f2f2f2}
             
             .th-employes {
-              background-color: #9CC2E5;
-              color: black;
+              background-color: #A9261C;
+              color: white;
             }
 
             #customers {
@@ -107,8 +108,8 @@ export const MonthlyReport = (date,Nom,
               padding-top: 12px;
               padding-bottom: 12px;
               text-align: center;
-              background-color: #9CC2E5;
-              color: black;
+              background-color: #A9261C;
+              color: white;
               width: 50%;
             }
             .key {
@@ -137,23 +138,29 @@ export const MonthlyReport = (date,Nom,
         </style>
     </head>
     <body>
-        <h1>Rapport mensuel ( mois ${date} )</h1>
-         <h2> ${Nom} </h2>
-         ${logo}
+        <div>
+          <img src=${logo64} style = "display: block;
+                        margin-left: auto;
+                        margin-right: auto;
+                        width: 50%;" />
+          </div>
+          </br> </br>
+        <h2>Rapport mensuel ( mois ${date} )</h2>
+         <h3> Projet: ${Nom} </h3>
          </br>
        ${BarchartPerMonth}
        </br></br>
        <table class="chartColor">
         <tr >
-        <th style = "background-color : #305982; border-color: transparent; width: 20px; height: 10px"></th>
+        <th style = "background-color : #363636; border-color: transparent; width: 20px; height: 10px"></th>
         <th></th>
         <th>  Jours de travail</th>
         <th style = ""width: 20px></th>
         
-        <th style = "background-color : #ed7d31; border-color: transparent; width: 20px; height: 10px"></th>
+        <th style = "background-color : #aba2a2; border-color: transparent; width: 20px; height: 10px"></th>
         <th></th>
         <th>  Jours Repos</th>
-        <th style = "background-color : #823059; border-color: transparent; width: 20px; height: 10px"></th>
+        <th style = "background-color : #A9261C; border-color: transparent; width: 20px; height: 10px"></th>
         <th></th>
         <th>  Jours Feriers</th>
         </tr>

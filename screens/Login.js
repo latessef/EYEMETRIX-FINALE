@@ -20,7 +20,6 @@ const { height, width } = Dimensions.get('screen');
 import { Images, nowTheme } from '../constants';
 import { HeaderHeight } from '../constants/utils';
 import Loading from 'react-native-whc-loading';
-import {registerForPushNotificationsAsync} from './Notifunction';
 import firebase from '../database/firebase';
 
 
@@ -39,6 +38,8 @@ export default class Login extends React.Component {
       PasswordSucces: true,
     }
   }
+
+  
 
   updateInputVal = (val, prop) => {
     const state = this.state;
@@ -126,25 +127,40 @@ export default class Login extends React.Component {
               style={styles.imageBackgroundContainer}
               imageStyle={styles.imageBackground}
             >
-              <Block flex middle>
+              <Block flex >
             <Block style={styles.registerContainer} >
-            <Block flex={1} middle space="between">
+            <Block flex={1}  space="between">
                       <Block center flex={1}>
                         <Block flex space="between"  style={{ marginTop: 130}}>
                         <Block center>
-                          <Block width={width * 0.8} style={{marginTop: height < 812 ? 5 : 80}}>
+                          <Block>
+                            <Image source={Images.Logo} style={styles.logo}></Image>
+                          </Block>
+                          <Block width={width * 0.8} style={{marginTop: height < 812 ? 0 : 50}}>
+                          <Text
+                                style={{
+                                    fontFamily: 'montserrat-regular',
+                                    textAlign: 'center',
+                                    marginBottom: 20,
+                                    color: 'black'
+                                    }}
+                                muted
+                                size={25}
+                            >
+                                      SIGN IN
+                            </Text>
                               <Input
                                 placeholder="Email"
                                 type='email-address'
                                 style= {{ borderWidth: 1,
                                           borderColor: this.state.loginSucces ? '#E3E3E3' : nowTheme.COLORS.ERROR,
-                                          borderRadius: 30}}
+                                          borderRadius: 5}}
                                 iconContent={
                                   <Icon
                                     size={16}
                                     color="#ADB5BD"
                                     name="user"
-                                    family="antdesign"
+                                    family="Entypo"
                                     style={styles.inputIcons}
                                   />
                                 }
@@ -157,12 +173,12 @@ export default class Login extends React.Component {
                                               borderWidth: 1,
                                               paddingBottom: 10,
                                               borderColor: this.state.PasswordSucces ? '#E3E3E3' : nowTheme.COLORS.ERROR,
-                                              borderRadius: 30, backgroundColor: 'white'}}>
+                                              borderRadius: 5, backgroundColor: 'white'}}>
                                 <Icon
                                     size={16}
                                     color="#ADB5BD"
                                     name="lock"
-                                    family="antdesign"
+                                    family="Entypo"
                                     style={{marginTop: 12, marginLeft: 15,
                                       color: nowTheme.COLORS.ICON_INPUT}}
                                   />
@@ -190,21 +206,17 @@ export default class Login extends React.Component {
                               </View>
                             </Block>
                             <Block center style={{marginTop:height < 812 ? 20 : 30}}>
-                              <TouchableOpacity color="transparent" round style={{alignItems: "center"}} activeOpacity={0.8}
-                                  onPress={() => {this.userLogin();
-                                    registerForPushNotificationsAsync();}}>
-                                <LinearGradient
-                                  colors={[nowTheme.COLORS.PRIMARY, nowTheme.COLORS.TEXT]}
-                                  style={{ padding: 15, alignItems: 'center', borderRadius: 25,width:200 }}>
+                      
+                              <Button style={styles.ButtonStyle}  
+                                onPress={() => {this.userLogin()}} > 
                                     <Text
-                                      style={{ fontFamily: 'montserrat-bold' }}
-                                      size={14}
-                                      color={nowTheme.COLORS.WHITE}
-                                    >
-                                    Se Connecter
-                                    </Text>
-                                </LinearGradient>
-                              </TouchableOpacity>
+                                    style={{ fontFamily: 'montserrat-bold' }}
+                                    size={14}
+                                    color={nowTheme.COLORS.WHITE}
+                                  >
+                                  Se Connecter
+                                  </Text> 
+                              </Button>
                             </Block>
                             <TouchableOpacity center style={{marginTop:height < 812 ? 15 : 20}}
                                   onPress={()=>  navigation.navigate('ForgotPassword')}>
@@ -212,6 +224,7 @@ export default class Login extends React.Component {
                                         style={{
                                             fontFamily: 'montserrat-regular',
                                             textAlign: 'center',
+                                            color: '#363636'
                                             }}
                                         muted
                                         size={14}
@@ -245,28 +258,42 @@ export default class Login extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: theme.COLORS.BLACK,
+    backgroundColor: nowTheme.COLORS.BLACK,
     marginTop: Platform.OS === 'android' ? -HeaderHeight : 0
+  },
+  logo: {
+    height: 70,
+    width: 130
   },
   imageBackgroundContainer: {
     width: width,
-    height: height,
+    height: height * 0.8,
     //padding: 0,
     zIndex: 1
   },
+  ButtonStyle:{
+    marginTop:5,
+    alignSelf:'center',
+    //width: width - nowTheme.SIZES.BASE * 4,
+    height: nowTheme.SIZES.BASE * 3,
+    shadowRadius: 0,
+    shadowOpacity: 0,
+    borderRadius: 5,
+    width: width* 0.8 
+   },
   imageBackground: {
     width: width,
     height: height
   },
   padded: {
-    paddingHorizontal: theme.SIZES.BASE * 2,
+    paddingHorizontal: nowTheme.SIZES.BASE * 2,
     zIndex: 3,
     position: 'absolute',
-    bottom: Platform.OS === 'android' ? theme.SIZES.BASE * 2 : theme.SIZES.BASE * 3
+    bottom: Platform.OS === 'android' ? nowTheme.SIZES.BASE * 2 : nowTheme.SIZES.BASE * 3
   },
   button: {
-    width: width - theme.SIZES.BASE * 4,
-    height: theme.SIZES.BASE * 3,
+    width: width - nowTheme.SIZES.BASE * 4,
+    height: nowTheme.SIZES.BASE * 3,
     shadowRadius: 0,
     shadowOpacity: 0
   },
@@ -283,10 +310,11 @@ const styles = StyleSheet.create({
   registerContainer: {
     marginTop: height < 812 ? 140 : 120,
     marginBottom: 20,
-    width: width * 0.9,
-    height: height < 812 ? height * 0.75 : height * 0.67 ,
-    backgroundColor: 'transparent',
-    borderRadius: 4,
+    marginTop: 150,
+    width: width,
+    height: height < 812 ? height * 0.75 : height * 0.8 ,
+    backgroundColor: 'white',
+    borderRadius: 40,
     shadowColor: nowTheme.COLORS.BLACK,
     shadowOffset: {
       width: 0,

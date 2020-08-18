@@ -10,9 +10,9 @@ export const BarchartPerMonth = (table,maxPeople,DateJoursRepos,JoursFeries,date
          var height = (val.entry*35)/pas;
          height = height === 0 ? 0 : height;
          var p = val.entry === 0 ? ' ' : val.entry ;
-         var color = '#305982';
-         if(DateJoursRepos.includes(val.date)){ color = '#ed7d31'}
-         else if(JoursFeries.includes(val.date)){ color = '#823059'}
+         var color = '#363636';
+         if(DateJoursRepos.includes(val.date)){ color = '#aba2a2'}
+         else if(JoursFeries.includes(val.date)){ color = '#A9261C'}
          values = values+`<tr class="qtr" id="q${val.date}">
                           <th scope="row">${val.date}</th>
                           <td class="sent bar" style="height: ${height}px; background-color: ${color};"><p style="font-size:30%;">${p}</p></td>
@@ -125,10 +125,10 @@ export const BarchartPerMonth = (table,maxPeople,DateJoursRepos,JoursFeries,date
                                 color: #000;
                             }
                             #q-graph2 .bar p {
-                                margin: 2px 0 0; 
+                                margin: -10px 0 0; 
                                 padding: 0;
-                                opacity: .4;
-                                color: white;
+                                /* opacity: .4;*/
+                                color: black;
                                 font-weight: bold;
                                 
                             }

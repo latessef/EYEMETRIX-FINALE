@@ -184,14 +184,30 @@ export default class Inscription extends React.Component {
             style={styles.imageBackgroundContainer}
             imageStyle={styles.imageBackground}
           >
-          <Block flex middle>
+          <Block flex >
             <Block style={styles.registerContainer}>
               <Block flex space="evenly">
                 <Block flex={1}  space="between">
                   <Block center flex={0.8}>
                     <Block flex space="between">
                       <Block>
-                        <Block middle style={{marginTop: 100}}>    
+                        <Block  style={{marginTop: 30}}> 
+                          <Block center>
+                            <Image source={Images.Logo} style={styles.logo}></Image>
+                          </Block>
+                          <Text
+                                style={{
+                                    fontFamily: 'montserrat-regular',
+                                    textAlign: 'center',
+                                    marginBottom: 20,
+                                    marginTop: 30,
+                                    color: 'black'
+                                    }}
+                                muted
+                                size={20}
+                            >
+                                      INSCRIPTION
+                            </Text>
                           <Block width={width * 0.8} style={{ marginBottom: 5 }}>
                               <Input
                               placeholder="Nom & Prénom"
@@ -201,7 +217,7 @@ export default class Inscription extends React.Component {
                                   size={16}
                                   color="#ADB5BD"
                                   name="user"
-                                  family="antdesign"
+                                  family="Entypo"
                                   style={styles.inputIcons}
                                 />
                               }
@@ -215,13 +231,13 @@ export default class Inscription extends React.Component {
                               type='email-address'
                               style={{ borderWidth: 1,
                                        borderColor: this.state.loginSucces ? '#E3E3E3' : nowTheme.COLORS.ERROR,
-                                       borderRadius: 21.5 }}
+                                       borderRadius: 5, marginTop: -14 }}
                               iconContent={
                                 <Icon
                                   size={16}
                                   color="#ADB5BD"
                                   name="mail"
-                                  family="antdesign"
+                                  family="Entypo"
                                   style={styles.inputIcons}
                                 />
                               }
@@ -234,12 +250,12 @@ export default class Inscription extends React.Component {
                                             borderWidth: 1,
                                             paddingBottom: 10,
                                             borderColor: this.state.PasswordSucces ? '#E3E3E3' : nowTheme.COLORS.ERROR,
-                                            borderRadius: 21.5, backgroundColor: 'white'}}>
+                                            borderRadius: 5, backgroundColor: 'white'}}>
                                <Icon
                                   size={16}
                                   color="#ADB5BD"
                                   name="lock"
-                                  family="antdesign"
+                                  family="Entypo"
                                   style={{marginTop: 12, marginLeft: 15,
                                     color: nowTheme.COLORS.ICON_INPUT}}
                                 />
@@ -271,12 +287,12 @@ export default class Inscription extends React.Component {
                                             borderWidth: 1,
                                             paddingBottom: 10,
                                             borderColor: this.state.PasswordConfSucces ? '#E3E3E3' : nowTheme.COLORS.ERROR,
-                                            borderRadius: 21.5, backgroundColor: 'white'}}>
+                                            borderRadius: 5, backgroundColor: 'white'}}>
                                <Icon
                                   size={16}
                                   color="#ADB5BD"
                                   name="lock"
-                                  family="antdesign"
+                                  family="Entypo"
                                   style={{marginTop: 12, marginLeft: 15,
                                     color: nowTheme.COLORS.ICON_INPUT}}
                                 />
@@ -306,7 +322,8 @@ export default class Inscription extends React.Component {
                           <Block width={width * 0.8} style={{marginTop: 10}}>
                             <PhoneInput
                                 ref='phone'
-                                style={{borderRadius: 30,
+                                style={{
+                                  borderRadius: 5,
                                   borderColor: nowTheme.COLORS.BORDER,
                                   height: 44,
                                   backgroundColor: '#FFFFFF',
@@ -323,29 +340,25 @@ export default class Inscription extends React.Component {
                               />
                           </Block>
                           <Block center style={{marginTop:height < 812 ? 30 : 45}}>
-                            <TouchableOpacity color="transparent" round style={{alignItems: "center"}} activeOpacity={0.8}
-                                onPress={() => this.registerUser()}>
-                              <LinearGradient
-                                colors={[nowTheme.COLORS.PRIMARY, nowTheme.COLORS.TEXT]}
-                                style={{ padding: 15, alignItems: 'center', borderRadius: 25,width:200 }}>
-                                  <Text
-                                    style={{ fontFamily: 'montserrat-bold' }}
-                                    size={14}
-                                    color={nowTheme.COLORS.WHITE}
-                                  >
-                                   S'inscrire
-                                  </Text>
-                                  <Loading 
-                                    ref="loading"
-                                    backgroundColor='transparent'
-                                    borderRadius={5}
-                                    size={70}
-                                    imageSize={40}
-                                    indicatorColor= {nowTheme.COLORS.PRIMARY}
-                                    easing={Loading.EasingType.ease}
-                                  />
-                              </LinearGradient>
-                            </TouchableOpacity>
+                            <Button style={styles.ButtonStyle}  
+                                  onPress={() => {this.registerUser()}} > 
+                                      <Text
+                                      style={{ fontFamily: 'montserrat-bold' }}
+                                      size={14}
+                                      color={nowTheme.COLORS.WHITE}
+                                    >
+                                    S'inscrire
+                                    </Text> 
+                              </Button>
+                            <Loading 
+                              ref="loading"
+                              backgroundColor='transparent'
+                              borderRadius={5}
+                              size={70}
+                              imageSize={40}
+                              indicatorColor= {nowTheme.COLORS.PRIMARY}
+                              easing={Loading.EasingType.ease}
+                            />      
                         </Block>  
                         </Block>   
                         </Block>
@@ -365,7 +378,7 @@ export default class Inscription extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: theme.COLORS.BLACK,
+    backgroundColor: nowTheme.COLORS.BLACK,
     marginTop: Platform.OS === 'android' ? -HeaderHeight : 0
   },
   imageBackgroundContainer: {
@@ -374,10 +387,24 @@ const styles = StyleSheet.create({
     //padding: 0,
     zIndex: 1
   },
+  logo: {
+    height: 70,
+    width: 130
+  },
   imageBackground: {
     width: width,
     height: height
   },
+  ButtonStyle:{
+    marginTop:5,
+    alignSelf:'center',
+    //width: width - theme.SIZES.BASE * 4,
+    height: theme.SIZES.BASE * 3,
+    shadowRadius: 0,
+    shadowOpacity: 0,
+    borderRadius: 5,
+    width: width* 0.8 
+   },
   padded: {
     paddingHorizontal: theme.SIZES.BASE * 2,
     zIndex: 3,
@@ -401,12 +428,13 @@ const styles = StyleSheet.create({
   },
 
   registerContainer: {
-    marginTop: height < 812 ? 0 : 130,
+    marginTop: height < 812 ? 140 : 120,
     marginBottom: 20,
-    width: width * 0.9,
-    height: height < 812 ? height * 0.75 : height * 0.67 ,
-    backgroundColor: 'transparent',
-    borderRadius: 4,
+    marginTop: 220,
+    width: width,
+    height: height < 812 ? height * 0.75 : height * 0.8 ,
+    backgroundColor: 'white',
+    borderRadius: 40,
     shadowColor: nowTheme.COLORS.BLACK,
     shadowOffset: {
       width: 0,
@@ -430,7 +458,7 @@ const styles = StyleSheet.create({
     shadowOffset: {
       width: 0,
       height: 4
-    }, 
+    },
     shadowRadius: 8,
     shadowOpacity: 0.1,
     elevation: 1
@@ -447,7 +475,8 @@ const styles = StyleSheet.create({
   inputs: {
     borderWidth: 1,
     borderColor: '#E3E3E3',
-    borderRadius: 21.5
+    borderRadius: 5,
+    
   },
   passwordCheck: {
     paddingLeft: 2,

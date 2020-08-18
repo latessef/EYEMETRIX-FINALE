@@ -12,14 +12,13 @@ export const BarchartPerDay = (table,maxPeople,DateJoursRepos,JoursFeries) => {
          var height = Math.trunc((table[i].entry*35)/pas);
          height = height === 0 ? 0 : height+6;
          var p = table[i].entry === 0 ? ' ' : table[i].entry ;
-         var color = '#305982';
-         if(DateJoursRepos.includes(table[i].day)){ color = '#ed7d31'}
-         else if(JoursFeries.includes(table[i].date)){ color = '#823059'}
+         var color = '#363636';
+         if(DateJoursRepos.includes(table[i].day)){ color = ' #aba2a2'}
+         else if(JoursFeries.includes(table[i].date)){ color = '#A9261C'}
          values = values+`<tr class="qtr" id="q${i}">
                           <th scope="row">${table[i].day}</th>
                           <td class="sent bar" style="height: ${height}px; background-color: ${color};"><p style="font-size:70%;">${p}</p></td>
                           </tr>`
-       // i = i+1;
     }
      
         values = values+`</tbody>
@@ -123,10 +122,10 @@ export const BarchartPerDayStyles = (length) => {
                                 color: #000;
                             }
                             #q-graph1 .bar p {
-                                margin: 5px 0 0; 
+                                margin: -10px 0 0; 
                                 padding: 0;
-                                opacity: .4;
-                                color: white;
+                                /*opacity: .4;*/
+                                color: black;
                                 font-weight: bold;
                             }
                             #q-graph1 .sent {

@@ -1,8 +1,9 @@
 // local imgs
-const Onboarding = require('../assets/imgs/4.jpg');
-const Logo = require('../assets/imgs/logo-ieteria.jpg');
-const ProfileBackground = require('../assets/imgs/ia2.jpg');
-const RegisterBackground = require('../assets/imgs/register-bg.png');
+const Onboarding = require('../assets/imgs/Pattern.jpg');
+const Logo = require('../assets/imgs/EyeMetrix_logo.jpg');
+const LogoText = require('../assets/imgs/EyeMetrixLog.jpg');
+const ProfileBackground = require('../assets/imgs/Profile.jpg');
+const RegisterBackground = require('../assets/imgs/Pattern.jpg');
 const Pro = require('../assets/imgs/bg.png');
 const NowLogo = require('../assets/imgs/logo-ieteria.jpg');
 const iOSLogo = require('../assets/imgs/ios.png');
@@ -31,6 +32,7 @@ const Products = {
 export default {
   Onboarding,
   Logo,
+  LogoText,
   ProfileBackground,
   ProfilePicture,
   RegisterBackground,

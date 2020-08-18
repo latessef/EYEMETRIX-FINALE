@@ -5,7 +5,7 @@ import {
   View, TouchableOpacity,Modal,Alert
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Block, Text } from 'galio-framework';
+import { Block, Text, Button } from 'galio-framework';
 import PhoneInput from 'react-native-phone-input';
 
 import Icon from './Icon';
@@ -82,7 +82,7 @@ class PhoneChange extends React.Component {
                   <PhoneInput
                             ref='phone'
                             style={{
-                                  borderRadius: 30,
+                                  borderRadius: 5,
                                   borderColor: nowTheme.COLORS.BORDER,
                                   height: 44,
                                   backgroundColor: '#FFFFFF',
@@ -98,20 +98,16 @@ class PhoneChange extends React.Component {
                    />
               </Block>
               <View style={{  justifyContent: "center", alignItems: "center", marginTop:20}}>
-                  <TouchableOpacity color="transparent" round style={{alignItems: "center"}}
-                             onPress={() => {
-                               this.UpdatePhone(this.refs.phone.getValue());
-                               }}>
-                      <LinearGradient
-                            colors={[nowTheme.COLORS.PRIMARY, nowTheme.COLORS.TEXT]}
-                            style={{ padding: 15, alignItems: 'center', borderRadius: 25,width:150,  }}>
-                            <Text
-                              style={{ fontFamily: 'montserrat-bold' }}
-                              size={12}
-                              color={nowTheme.COLORS.WHITE}
-                            >
-                             Modifier
-                            </Text>
+                  <Button style={styles.ButtonStyle}  
+                      onPress={() => {this.UpdatePhone(this.refs.phone.getValue());}} > 
+                    <Text
+                      style={{ fontFamily: 'montserrat-bold' }}
+                      size={14}
+                      color={nowTheme.COLORS.WHITE}
+                    >
+                        Modifier
+                    </Text> 
+                    </Button>
                           <Loading 
                               ref="loading"
                               backgroundColor='transparent'
@@ -121,8 +117,6 @@ class PhoneChange extends React.Component {
                               indicatorColor={nowTheme.COLORS.PRIMARY}
                               easing={Loading.EasingType.ease}
                           />
-                      </LinearGradient>
-                  </TouchableOpacity>
               </View>
               
           </View>
@@ -135,8 +129,17 @@ const styles = StyleSheet.create({
   inputs: {
     borderWidth: 1,
     borderColor: '#E3E3E3',
-    borderRadius: 21.5
+    borderRadius: 5
   },
+  ButtonStyle:{
+    marginTop:5,
+    alignSelf:'center',
+    height: nowTheme.SIZES.BASE * 3,
+    shadowRadius: 0,
+    shadowOpacity: 0,
+    borderRadius: 5,
+    width: width* 0.5
+   },
 });
 
 export default PhoneChange;

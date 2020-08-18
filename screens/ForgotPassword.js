@@ -55,115 +55,133 @@ export default class ForgotPassword extends React.Component {
 
   render() {
     const { navigation } = this.props;
-    if(this.state.isLoading){
-      return(
-        <View style={styles.preloader}>
-          <ActivityIndicator size="large" color="#9E9E9E"/>
-        </View>
-      )
-    }    
-
     return (
-      // <KeyboardAvoidingView  style={{ flex: 1 }} behavior={"padding"}>
-      <Block flex style={styles.container}>
-        <StatusBar barStyle="light-content" />
-        <Loading show={false}/>
-        <Block flex middle>
-          <ImageBackground
-            source={Images.Onboarding}
-            style={styles.imageBackgroundContainer}
-            imageStyle={styles.imageBackground}
-          >
-            <Block flex middle>
-          <Block style={styles.registerContainer} >
-          <Block flex={1} middle space="between">
-                    <Block center flex={1}>
-                      <Block flex space="between"  style={{ marginTop: 130}}>
-                      <Block center>
-                        <Block width={width * 0.8} style={{marginTop: 50}}>
+      <KeyboardAvoidingView style={{ flex: 1 }}  behavior={Platform.OS === 'ios' ? 'padding' : undefined}> 
+        <Block flex style={styles.container}>
+          <StatusBar barStyle="light-content" />
+          <Block flex middle>
+            <ImageBackground
+              source={Images.Onboarding}
+              style={styles.imageBackgroundContainer}
+              imageStyle={styles.imageBackground}
+            >
+              <Block flex >
+            <Block style={styles.registerContainer} >
+            <Block flex={1}  space="between">
+                      <Block center flex={1}>
+                        <Block flex space="between"  style={{ marginTop: 130}}>
+                        <Block center>
+                          <Block>
+                            <Image source={Images.Logo} style={styles.logo}></Image>
+                          </Block>
+                          <Block width={width * 0.8} style={{marginTop: height < 812 ? 0 : 50}}>
+                          <Text
+                                style={{
+                                    fontFamily: 'montserrat-regular',
+                                    textAlign: 'center',
+                                    marginBottom: 20,
+                                    color: 'black'
+                                    }}
+                                muted
+                                size={20}
+                            >
+                                      FORGOT PASSWORD
+                            </Text>
+                              <Input
+                                placeholder="Email"
+                                type='email-address'
+                                style= {{ borderWidth: 1,
+                                          borderColor: '#E3E3E3',
+                                          borderRadius: 5}}
+                                iconContent={
+                                  <Icon
+                                    size={16}
+                                    color="#ADB5BD"
+                                    name="user"
+                                    family="Entypo"
+                                    style={styles.inputIcons}
+                                  />
+                                }
+                                value={this.state.email}
+                                onChangeText={(val) => this.updateInputVal(val, 'email')}
+                              />
+                            </Block>
                             
-                            <Input
-                              placeholder="Email"
-                              type='email-address'
-                              style={styles.inputs}
-                              iconContent={
-                                <Icon
-                                  size={16}
-                                  color="#ADB5BD"
-                                  name="user"
-                                  family="antdesign"
-                                  style={styles.inputIcons}
-                                />
-                              }
-                              value={this.state.email}
-                              onChangeText={(val) => this.updateInputVal(val, 'email')}
-                            />
-                          </Block>
-                          <Block center style={{marginTop:height < 812 ? 20 : 30}}>
-                          <LinearGradient
-                            colors={[nowTheme.COLORS.PRIMARY, nowTheme.COLORS.TEXT]}
-                            style={{ padding: 15, alignItems: 'center', borderRadius: 25,width:200 }}>
-                            <TouchableOpacity color="transparent" round style={{alignItems: "center"}}
-                              onPress={() => this.handlePasswordReset(this.state.email)}>
-                              <Text
-                                style={{ fontFamily: 'montserrat-bold' }}
-                                size={14}
-                                color={nowTheme.COLORS.WHITE}
-                              >
-                              Confirmer
-                              </Text>
-                            </TouchableOpacity>
-                            <Loading 
-                              ref="loading"
-                              backgroundColor='transparent'
-                              borderRadius={5}
-                              size={70}
-                              imageSize={40}
-                              indicatorColor={nowTheme.COLORS.PRIMARY}
-                              easing={Loading.EasingType.ease}
-                          />
-                          </LinearGradient>
-                          </Block>
-                          </Block>                      
-                       </Block>
-          
-                     </Block>
-           </Block>
-
+                            <Block center style={{marginTop:height < 812 ? 20 : 30}}>
+                      
+                              <Button style={styles.ButtonStyle}  
+                                onPress={() => {this.handlePasswordReset(this.state.email)}} > 
+                                    <Text
+                                    style={{ fontFamily: 'montserrat-bold' }}
+                                    size={14}
+                                    color={nowTheme.COLORS.WHITE}
+                                  >
+                                  Confirmer
+                                  </Text> 
+                              </Button>
+                            </Block>
+                              <Loading 
+                                ref="loading"
+                                backgroundColor='transparent'
+                                borderRadius={5}
+                                size={70}
+                                imageSize={40}
+                                indicatorColor={nowTheme.COLORS.PRIMARY}
+                                easing={Loading.EasingType.ease}
+                              />
+                            </Block>                      
+                        </Block>
+            
+                      </Block>
+            </Block>
+            </Block>
+            </Block>
+          </ImageBackground>
           </Block>
-          </Block>
-         </ImageBackground>
         </Block>
-      </Block>
-      // </KeyboardAvoidingView>
+      </KeyboardAvoidingView>
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: theme.COLORS.BLACK,
+    backgroundColor: nowTheme.COLORS.BLACK,
     marginTop: Platform.OS === 'android' ? -HeaderHeight : 0
+  },
+  logo: {
+    height: 70,
+    width: 130
   },
   imageBackgroundContainer: {
     width: width,
-    height: height*0.90,
+    height: height * 0.8,
     //padding: 0,
     zIndex: 1
   },
+  ButtonStyle:{
+    marginTop:5,
+    alignSelf:'center',
+    //width: width - nowTheme.SIZES.BASE * 4,
+    height: nowTheme.SIZES.BASE * 3,
+    shadowRadius: 0,
+    shadowOpacity: 0,
+    borderRadius: 5,
+    width: width* 0.8 
+   },
   imageBackground: {
     width: width,
     height: height
   },
   padded: {
-    paddingHorizontal: theme.SIZES.BASE * 2,
+    paddingHorizontal: nowTheme.SIZES.BASE * 2,
     zIndex: 3,
     position: 'absolute',
-    bottom: Platform.OS === 'android' ? theme.SIZES.BASE * 2 : theme.SIZES.BASE * 3
+    bottom: Platform.OS === 'android' ? nowTheme.SIZES.BASE * 2 : nowTheme.SIZES.BASE * 3
   },
   button: {
-    width: width - theme.SIZES.BASE * 4,
-    height: theme.SIZES.BASE * 3,
+    width: width - nowTheme.SIZES.BASE * 4,
+    height: nowTheme.SIZES.BASE * 3,
     shadowRadius: 0,
     shadowOpacity: 0
   },
@@ -178,12 +196,13 @@ const styles = StyleSheet.create({
   },
 
   registerContainer: {
-    marginTop: height < 812 ? 140 : 200,
+    marginTop: height < 812 ? 140 : 120,
     marginBottom: 20,
-    width: width * 0.9,
-    height: height < 812 ? height * 0.75 : height * 0.67 ,
-    backgroundColor: 'transparent',
-    borderRadius: 4,
+    marginTop: 150,
+    width: width,
+    height: height < 812 ? height * 0.75 : height * 0.8 ,
+    backgroundColor: 'white',
+    borderRadius: 40,
     shadowColor: nowTheme.COLORS.BLACK,
     shadowOffset: {
       width: 0,
@@ -242,5 +261,5 @@ const styles = StyleSheet.create({
     borderRadius: theme.SIZES.BASE * 1.75,
     justifyContent: 'center',
     marginHorizontal: 10
-  }
+  },
 });

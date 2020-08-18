@@ -100,7 +100,7 @@ const ProfileStack = createStackNavigator(
       screen: Profile,
       navigationOptions: ({ navigation }) => ({
         header: () =>  (
-          <Header transparent title="Profile" titleColor= {'#000000'} iconColor={'#000000'} navigation={navigation} screen="Home" back={true}/>
+          <Header transparent title="Profile" titleColor= {'#000000'} iconColor={'white'} navigation={navigation} screen="Home" back={true} titleColor={'white'}/>
         ),
         headerTransparent: true
       })
@@ -120,7 +120,7 @@ const AccountStack = createStackNavigator(
       screen: Register,
       navigationOptions: ({ navigation }) => ({
         header: () =>  (
-          <Header transparent title="Ajout d'un compte" iconColor={'#333'} navigation={navigation} screen="Home" back={true}/>
+          <Header transparent title="Ajout d'un compte" iconColor={'white'} navigation={navigation} screen="Home" back={true} titleColor={'white'}/>
         ),
         headerTransparent: true
       })
@@ -372,7 +372,7 @@ const ForgotPasswordStack = createStackNavigator(
       screen: ForgotPassword,
       navigationOptions: ({ navigation }) => ({
         header: () =>  (
-          <Header transparent iconColor={'#000000'} navigation={navigation} screen="Login" back={true} title=""/>
+          <Header transparent iconColor={'#FFFFFF'} navigation={navigation} screen="Login" back={true} title=""/>
         ),
         headerTransparent: true
       })
@@ -391,12 +391,12 @@ const ForgotPasswordStack = createStackNavigator(
 const AppStack = createDrawerNavigator(     
   {
     // Inscription: {
-   // screen: Inscription,
-      // navigationOptions: ( { navigation } ) => ( {
-        // drawerLabel: ( ) => { },
-      //  drawerLockMode: 'locked-closed',
-      // }),
-    //  },
+    //   screen: Inscription,
+    //   navigationOptions: ( { navigation } ) => ( {
+    //     drawerLabel: ( ) => { },
+    //     drawerLockMode: 'locked-closed',
+    //   }),
+    // },
     Login: {
       screen: Login,
       navigationOptions: ( { navigation } ) => ( {

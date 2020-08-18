@@ -1,14 +1,16 @@
 import React from "react";
 import { StyleSheet, View, Dimensions,TouchableOpacity, Alert } from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
-import { Block, Text } from 'galio-framework';
+import { Block, Text, Button} from 'galio-framework';
 import  Input  from './Input';
 import Icon from './Icon';
 import { nowTheme } from "../constants";
 import firebase from '../database/firebase';
 import Loading from 'react-native-whc-loading';
 import Moment from 'moment';
+import RNPickerSelect from 'react-native-picker-select';
 const { width, height } = Dimensions.get('screen');
+import SectionedMultiSelect from 'react-native-sectioned-multi-select';
 
 
 class AddProject extends React.Component {
@@ -30,6 +32,80 @@ class AddProject extends React.Component {
       novembre_6 : new Date("2020-11-06"), 
       novembre_18 : new Date("2020-11-18"),
       exist : "",
+      selectedItems: [],
+      list: [
+        {
+          name: 'Services Hospitalier',
+          id: 0,
+          children: [
+            { name: 'Hotel', id: 'Hotel' },
+            { name: 'Motel', id: 'Motel' },
+            { name: 'Auberge', id:'Loge' },
+            { name: 'Café', id: 'Café' },
+            { name: 'Restaurant', id: 'Restaurant' },
+            { name: 'Fast Food ', id: 'Fast Food' },
+          ],
+        },
+        {
+          name: 'Entreprise',
+          id: 1,
+          children: [
+            { name: 'Construction', id: 'Construction' },
+            { name: 'Usine', id: 'Usine' },
+            { name: 'Bureau', id:'Bureau' },
+            { name: 'Agence', id: 'Agence' },
+          ],
+
+        },
+        {
+          name: 'Santé et Soins',
+          id: 2,
+          children: [
+            { name: 'Clinique', id: 'Clinique' },
+            { name: 'Hopitale', id: 'Hopitale' },
+            { name: 'Gym', id:'Gym' },
+            { name: 'SPA', id: 'SPA' },
+            { name: 'Salon', id: 'Salon' },
+            { name: 'Laboratoire ', id: 'Laboratoire' },
+          ],
+
+        },
+        {
+          name: 'Résidentielle et Immobilier',
+          id: 3,
+          children: [
+            { name: 'Maison', id: 'Maison' },
+            { name: 'Appartement', id: 'Appartement' },
+            { name: 'Chalet', id:'Chalet' },
+            { name: 'Ferme', id: 'Ferme' },
+          ],
+        },
+        {
+          name: 'Service de Vente',
+          id: 4,
+          children: [
+            { name: 'Super Marché', id: 'Super Marché' },
+            { name: 'Magasin Textile', id: 'Magasin Textile' },
+            { name: 'Epicière', id:'Epicière' },
+            { name: 'Pharmacie', id: 'Pharmacie' },
+            { name: 'Animalerie', id: 'Animaleie' },
+          ],
+        },
+        {
+          name: 'Immobilier récréatif',
+          id: 5,
+          children: [
+            { name: 'Rue', id: 'Rue' },
+            { name: 'Jardin', id: 'Jardin' },
+            { name: 'Parc', id:'Parc' },
+            { name: 'Terrain de jeux', id: 'Terrain de jeux' },
+            { name: 'Piscine', id: 'Piscine' },
+            { name: 'Plage', id: 'Plage' },
+            { name: 'Terrain de sport', id: 'Terrain de sport' },
+          ],
+        },
+
+      ]
     }
   }
 
@@ -42,6 +118,10 @@ class AddProject extends React.Component {
   changeModal(visible){
     this.props.referenceCallback(visible);
   }
+
+  onSelectedItemsChange = (selectedItems) => {
+    this.setState({ selectedItems });
+  };
 
   addProject = () => {
     this.refs.loading.show();
@@ -71,6 +151,7 @@ class AddProject extends React.Component {
               firebase.database().ref(`projects/`+firebase.auth().currentUser.uid+`/`+id+`/`).set({
                 counterFlux : 0,
                 nom : titre,
+                category: this.state.selectedItems[0]
               });
               firebase.database().ref(`projects/`+firebase.auth().currentUser.uid+`/`+id+`/flux`).set({
                 entrants : 0,
@@ -273,20 +354,42 @@ class AddProject extends React.Component {
               onChangeText={(val) => this.updateInputVal(val, 'nom')}
             />
           </Block>
+          <Block width={width * 0.83} style={styles.container}>
+            <SectionedMultiSelect
+              items={this.state.list}
+              uniqueKey="id"
+              subKey="children"
+              selectText="Choisir une catégorie..."
+              showDropDowns={true}
+              readOnlyHeadings={true}
+              onSelectedItemsChange={(val) => this.updateInputVal(val, 'selectedItems')}
+              selectedItems={this.state.selectedItems}
+              single = {true}
+              hideConfirm = {true}
+              hideSearch = {false}
+              itemFontFamily = "normal"
+              
+              // showChips = {false}
+              styles = {{
+                subItemText : {color : '#363636',marginLeft : 20},
+                selectToggleText : {color : nowTheme.COLORS.MUTED ,marginLeft : 28,fontSize : 15},
+                selectToggle : {color : nowTheme.COLORS.PRIMARY , fontSize : 15}, 
+                selectedItem: {color: 'black'},
+                separator : {color : 'red'}
+              }}
+            />
+          </Block>
           <View style={{  justifyContent: "center", alignItems: "center", marginTop:20}}>
-            <TouchableOpacity color="transparent" round style={{alignItems: "center"}}
-                  onPress={() => {this.addProject();}}>
-                <LinearGradient
-                  colors={[nowTheme.COLORS.PRIMARY, nowTheme.COLORS.TEXT]}
-                  style={{ padding: 15, alignItems: 'center', borderRadius: 5,borderRadius:350,width:150,  }}>
-                  
+            <Button style={styles.ButtonStyle}  
+                    onPress={() => {this.addProject();}} > 
                     <Text
-                      style={{ fontFamily: 'montserrat-bold' }}
-                      size={12}
-                      color={nowTheme.COLORS.WHITE}
-                    >
+                    style={{ fontFamily: 'montserrat-bold' }}
+                    size={14}
+                    color={nowTheme.COLORS.WHITE}
+                   >
                       Ajouter
-                    </Text>
+                   </Text> 
+            </Button>
                   <Loading 
                     ref="loading"
                     backgroundColor='transparent'
@@ -296,8 +399,6 @@ class AddProject extends React.Component {
                     indicatorColor={nowTheme.COLORS.PRIMARY}
                     easing={Loading.EasingType.ease}
                   />
-                </LinearGradient>
-            </TouchableOpacity>
           </View>
         </View>
     );
@@ -312,30 +413,37 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 22
   },
-  modalView: {
-    margin: 20,
-    backgroundColor: "white",
-    borderRadius: 4,
-    padding: 35,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-    width: width * 0.9,
-  },
+  ButtonStyle:{
+    marginTop:5,
+    alignSelf:'center',
+    //width: width - nowTheme.SIZES.BASE * 4,
+    height: nowTheme.SIZES.BASE * 3,
+    shadowRadius: 0,
+    shadowOpacity: 0,
+    borderRadius: 5,
+    width: width* 0.5
+   },
   inputs: {
     borderWidth: 1,
     borderColor: '#E3E3E3',
-    borderRadius: 21.5
+    borderRadius: 5
   },
   inputIcons: {
     marginRight: 12,
     color: nowTheme.COLORS.ICON_INPUT
+  },
+  container: {
+    // flex: 1,
+    // backgroundColor: 'white',
+    marginRight: 8,
+    borderColor: '#E3E3E3',
+    borderRadius: 5,
+    height: 44,
+    justifyContent : 'center',
+    // alignItems : 'center',
+    // backgroundColor: '#FFFFFF',
+    borderWidth: 1,
+    marginTop: 10   
   },
 });
 

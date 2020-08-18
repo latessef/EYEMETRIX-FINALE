@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView, Alert, Platform, View, TextInput
 } from 'react-native';
-import { Block, Text} from 'galio-framework';
+import { Block, Text,Button} from 'galio-framework';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Icon, Input } from '../components';
 import { Images, nowTheme } from '../constants';
@@ -275,20 +275,33 @@ class Register extends React.Component {
                 <Block flex>
                   <Block flex space="between">
                         <Block middle style={{ marginTop: height < 812 ? 50 : 80 }}>
+                        <Text
+                                style={{
+                                    fontFamily: 'montserrat-regular',
+                                    textAlign: 'center',
+                                    marginBottom: 20,
+                                    marginTop: 10,
+                                    color: 'black'
+                                    }}
+                                muted
+                                size={20}
+                            >
+                                      AJOUT UTILISATEUR
+                            </Text>
                           <Block width={width * 0.8}>
                               <Input
                                 placeholder= "Nom & Prénom"
                                 style={{
                                        borderWidth: 1,
                                        borderColor: '#E3E3E3',
-                                       borderRadius: 30
+                                       borderRadius: 5
                                 }}
                                 iconContent={
                                   <Icon
                                     size={16}
                                     color="#ADB5BD"
                                     name="user"
-                                    family="antdesign"
+                                    family="Entypo"
                                     style={styles.inputIcons}
                                   />
                                 }
@@ -302,14 +315,14 @@ class Register extends React.Component {
                               type='email-address'
                               style={{ borderWidth: 1,
                                        borderColor: this.state.loginSucces ? '#E3E3E3' : nowTheme.COLORS.ERROR,
-                                       borderRadius: 30,
+                                       borderRadius: 5,
                                        marginTop : -8 }}
                               iconContent={
                                 <Icon
                                   size={16}
                                   color="#ADB5BD"
                                   name="mail"
-                                  family="antdesign"
+                                  family="Entypo"
                                   style={styles.inputIcons}
                                 />
                               }
@@ -322,7 +335,7 @@ class Register extends React.Component {
                                             borderWidth: 1,
                                             paddingBottom: 10,
                                             borderColor: this.state.PasswordSucces ? '#E3E3E3' : nowTheme.COLORS.ERROR,
-                                            borderRadius: 30, 
+                                            borderRadius: 5, 
                                             backgroundColor: 'white'
                                           }}
                             >
@@ -330,7 +343,7 @@ class Register extends React.Component {
                                   size={16}
                                   color="#ADB5BD"
                                   name="lock"
-                                  family="antdesign"
+                                  family="Entypo"
                                   style={{marginTop: 12, marginLeft: 15,
                                   color: nowTheme.COLORS.ICON_INPUT}}
                                 />
@@ -363,7 +376,7 @@ class Register extends React.Component {
                                             borderWidth: 1,
                                             paddingBottom: 10,
                                             borderColor: this.state.PasswordConfSucces ? '#E3E3E3' : nowTheme.COLORS.ERROR,
-                                            borderRadius: 30, 
+                                            borderRadius: 5, 
                                             backgroundColor: 'white'
                                         }}
                             >
@@ -371,7 +384,7 @@ class Register extends React.Component {
                                   size={16}
                                   color="#ADB5BD"
                                   name="lock"
-                                  family="antdesign"
+                                  family="Entypo"
                                   style={{marginTop: 12, marginLeft: 15,
                                     color: nowTheme.COLORS.ICON_INPUT}}
                                 />
@@ -404,7 +417,7 @@ class Register extends React.Component {
                             <PhoneInput
                                 ref='phone'
                                 style={{
-                                  borderRadius: 30,
+                                  borderRadius: 5,
                                   borderColor: nowTheme.COLORS.BORDER,
                                   height: 44,
                                   backgroundColor: '#FFFFFF',
@@ -421,7 +434,8 @@ class Register extends React.Component {
                               />
                           </Block>
                           <Block width={width * 0.79} 
-                                  style={{borderRadius: 30,
+                                  style={{
+                                    borderRadius: 5,
                                     borderColor: nowTheme.COLORS.BORDER,
                                     height: 44,
                                     backgroundColor: '#FFFFFF',
@@ -459,7 +473,7 @@ class Register extends React.Component {
                                           color:'#8898AA',
                                           marginLeft: Platform.OS === 'android' ? 25 : 40, 
                                           fontSize: Platform.OS === 'android' ? 5 : 16, 
-                                          marginTop: Platform.OS === 'android' ? -2 : 12
+                                          marginTop: Platform.OS === 'android' ? -2 : 12,
                                         },
                                         inputAndroid: {
                                           color: 'black',
@@ -482,29 +496,16 @@ class Register extends React.Component {
                               />
                           </Block>
                           <Block center style={{marginTop:height < 812 ? 20 : 45}}>
-                          <TouchableOpacity color="transparent" round style={{alignItems: "center"}} activeOpacity={0.8}
-                              onPress={() => this.registerUser()}>
-                            <LinearGradient
-                              colors={[nowTheme.COLORS.PRIMARY, nowTheme.COLORS.TEXT]}
-                              style={{ padding: 15, alignItems: 'center', borderRadius: 25,width:200 }}>
-                                <Text
-                                  style={{ fontFamily: 'montserrat-bold' }}
-                                  size={14}
-                                  color={nowTheme.COLORS.WHITE}
-                                >
-                                Ajouter
-                                </Text>
-                                <Loading 
-                                  ref="loading"
-                                  backgroundColor='transparent'
-                                  borderRadius={5}
-                                  size={70}
-                                  imageSize={40}
-                                  indicatorColor= {nowTheme.COLORS.PRIMARY}
-                                  easing={Loading.EasingType.ease}
-                                />
-                            </LinearGradient>
-                          </TouchableOpacity>
+                          <Button style={styles.ButtonStyle}  
+                                  onPress={() => {this.registerUser()}} > 
+                                      <Text
+                                      style={{ fontFamily: 'montserrat-bold' }}
+                                      size={14}
+                                      color={nowTheme.COLORS.WHITE}
+                                    >
+                                    Ajouter
+                                    </Text> 
+                              </Button>
                         </Block>
                       </Block>
                     </Block>
@@ -531,12 +532,24 @@ const styles = StyleSheet.create({
     width: width,
     height: height
   },
-  registerContainer: {
-    marginTop: height < 812 ? 10 : 40,
-    width: width * 0.9,
-    height: height < 812 ? height * 0.75 : height * 0.67 ,
-    backgroundColor: 'transparent',
-    borderRadius: 4,
+  ButtonStyle:{
+    marginTop:5,
+    alignSelf:'center',
+    //width: width - nowTheme.SIZES.BASE * 4,
+    height: nowTheme.SIZES.BASE * 3,
+    shadowRadius: 0,
+    shadowOpacity: 0,
+    borderRadius: 5,
+    width: width* 0.8 
+   },
+   registerContainer: {
+    marginTop: height < 812 ? 140 : 120,
+    marginBottom: 20,
+    marginTop: 220,
+    width: width,
+    height: height < 812 ? height * 0.75 : height * 0.8 ,
+    backgroundColor: 'white',
+    borderRadius: 40,
     shadowColor: nowTheme.COLORS.BLACK,
     shadowOffset: {
       width: 0,
@@ -547,6 +560,8 @@ const styles = StyleSheet.create({
     elevation: 1,
     overflow: 'hidden'
   },
+
+  
   socialConnect: {
     backgroundColor: 'transparent'
     // borderBottomWidth: StyleSheet.hairlineWidth,

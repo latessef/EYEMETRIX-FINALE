@@ -132,19 +132,6 @@ class MonthlyButton extends React.Component {
     }
   };
   
- htmlContent = async () => {
-    try {
-        const asset = require('../assets/imgs/chart3.png');
-        let src = await this.copyFromAssets(asset);
-       // if(Platform.OS === 'ios') {
-            src = await this.processLocalImageIOS(src);
-        //}
-        return `<img src="${src}" alt="Logo" />`
-    } catch (error) {
-        console.log(error);
-    }
-  }
-
 
   UNSAFE_componentWillMount = async () =>{
         const { projet } = this.props;
@@ -389,8 +376,7 @@ class MonthlyButton extends React.Component {
                     BarchartPerMonth(this.state.WorksDay,maxPeople,this.state.DateJoursRepos,this.state.JoursFeries,date),
                     BarchartPerMonthStyles(this.state.WorksDay.length),
                     EmployesMonth(this.state.Employes,this.state.MonthDay,this.state.EmployesNames,this.state.getDaysOfWorkEmps),
-                    GlobalTable(this.state.EmpNumbMonth,this.state.TotalEntryClient,this.state.OutBisEntry),
-                    this.htmlContent()
+                    GlobalTable(this.state.EmpNumbMonth,this.state.TotalEntryClient,this.state.OutBisEntry)
                     )
                   )
             }

@@ -6,6 +6,7 @@ import Icon from '../components/Icon';
 import { DrawerItem } from '../components/index';
 import firebase from '../database/firebase';
 import nowTheme from '../constants/Theme';
+import { Images } from '../constants';
 // import Loading from 'react-native-whc-loading';
 
 const { width } = Dimensions.get('screen');
@@ -31,7 +32,7 @@ const feedback = (props) => {
 const Drawer = props => (
   <Block style={styles.container} forceInset={{ top: 'always', horizontal: 'never' }}>
     <Block style={styles.header}>
-      <Image  style={styles.logo}  />
+      <Image source={Images.LogoText} style={styles.logo}  />
       <Block right style={styles.headerIcon}>
         <Icon name="align-left-22x" family="NowExtra" size={15} color={'black'} />
       </Block>
@@ -108,8 +109,8 @@ const styles = StyleSheet.create({
     marginTop: -20
   },
   logo: {
-    height: 35,
-    width: 75
+    height: 24,
+    width: 143
   },
   centeredView: {
     flex: 1,

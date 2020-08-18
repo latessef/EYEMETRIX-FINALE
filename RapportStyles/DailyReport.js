@@ -1,5 +1,6 @@
 import Moment from 'moment';
 import 'moment/locale/fr';
+import { logo64 } from './LogoBase64';
 
 
 export const DailyReport = (date,Nom,
@@ -21,13 +22,13 @@ export const DailyReport = (date,Nom,
                 font-size: 16px;
                 color: 'black';
             }
-            h1 {
-                text-align: center;
-                color: #1F3864;
-            }
             h2 {
+                text-align: center;
+                color: #A9261C;
+            }
+            h3 {
               text-align: center;
-              color: #595959;
+              color: #363636;
           }
           
             .bodyLineChart {
@@ -81,8 +82,8 @@ export const DailyReport = (date,Nom,
             .tr-employes:nth-child(even){background-color: #f2f2f2}
             
             .th-employes {
-              background-color: #9CC2E5;
-              color: black;
+              background-color: #A9261C;
+              color: white;
             }
 
             #customers {
@@ -107,8 +108,8 @@ export const DailyReport = (date,Nom,
               padding-top: 12px;
               padding-bottom: 12px;
               text-align: center;
-              background-color: #9CC2E5;
-              color: black;
+              background-color: #A9261C;
+              color: white;
               width: 50%;
             }
             .key {
@@ -137,19 +138,26 @@ export const DailyReport = (date,Nom,
         </style>
     </head>
     <body>
-        <h1>Rapport de fin de journée ${date}</h1>
-         <h2> ${Nom} </h2>
+        <div>
+        <img src= ${logo64}   style = "display: block;
+                      margin-left: auto;
+                      margin-right: auto;
+                      width: 50%;" />
+        </div>
+        </br> </br>
+        <h2>Rapport de fin de journée "${date}"</h2>
+         <h3>Projet: ${Nom} </h3>
          </br>
        ${BarchartPerHour}
        </br></br>
        <table class="chartColor">
         <tr >
-        <th style = "background-color : #305982; border-color: transparent; width: 20px; height: 10px"></th>
+        <th style = "background-color : #363636; border-color: transparent; width: 20px; height: 10px"></th>
         <th></th>
         <th>  Horaires du travail</th>
         <th style = ""width: 20px></th>
         
-        <th style = "background-color : #ed7d31; border-color: transparent; width: 20px; height: 10px"></th>
+        <th style = "background-color : #A9261C; border-color: transparent; width: 20px; height: 10px"></th>
         <th></th>
         <th>  Hors horaires</th>
         </tr>

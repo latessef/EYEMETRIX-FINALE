@@ -158,25 +158,15 @@ export default class Profile extends React.Component {
                 </Block>
               </Block>
             </Block>
-          </ImageBackground>
-        </Block>
-        <Block flex={0.6} style={{ padding: nowTheme.SIZES.BASE, marginTop: 1}}>
-          <ScrollView showsVerticalScrollIndicator={false} 
-         /* refreshControl ={
-            <RefreshControl
-            refreshing={this.state.refreshing}
-            onRefresh={this._onRefresh.bind(this)}
-          />
-          }*/
-          >
+            <Block flex={1.5} style={{ padding: nowTheme.SIZES.BASE, marginTop: 1}}>
+          <ScrollView showsVerticalScrollIndicator={false} >
           <Block flex style={{ marginTop: 1 }}>
-          
           <View style={styles.view}>
                 <Icon
                   size={20}
-                  color={nowTheme.COLORS.BLACK}
+                  color={nowTheme.COLORS.PRIMARY}
                   name="user"
-                  family="AntDesign"
+                  family="Entypo"
                   style={{ opacity: 0.5 }} />
                   <Text style={styles.text}>{this.state.displayName}</Text>
             </View>
@@ -186,9 +176,9 @@ export default class Profile extends React.Component {
             <View style={styles.view}>
                 <Icon
                   size={20}
-                  color={nowTheme.COLORS.BLACK}
+                  color={nowTheme.COLORS.PRIMARY}
                   name="mail"
-                  family="AntDesign"
+                  family="Entypo"
                   style={{ opacity: 0.5 }} />
                   <Text style={styles.text}>{this.state.email}</Text>
             </View>
@@ -198,9 +188,9 @@ export default class Profile extends React.Component {
             <View style={styles.view}>
                 <Icon
                   size={20}
-                  color={nowTheme.COLORS.BLACK}
+                  color={nowTheme.COLORS.PRIMARY}
                   name="phone"
-                  family="AntDesign"
+                  family="Entypo"
                   style={{ opacity: 0.5 }}
                   />
                   <Text style={styles.text} >{this.state.phoneNumber}</Text>
@@ -220,6 +210,9 @@ export default class Profile extends React.Component {
           </Block>           
           </ScrollView>
         </Block>
+          </ImageBackground>
+        </Block>
+        
       </Block>
 
   );
@@ -237,8 +230,8 @@ const styles = StyleSheet.create({
     padding: 0,
   },
   profileBackground: {
-    width,
-    height: height * 0.4
+    width: width,
+    height: height * 0.82
   },
 
   info: {
@@ -280,7 +273,7 @@ const styles = StyleSheet.create({
     fontWeight: "200",
     color: nowTheme.COLORS.BLACK,
     fontSize: 15,
-    marginLeft : 10
+    marginLeft : 20
   },
   view :{
     margin : 20,

@@ -47,14 +47,6 @@ class Projects extends React.Component {
   }
 
   UNSAFE_componentWillMount (){
-    const {navigation} = this.props;
-    const variablesTest = navigation.getParam('chihaja');
-    const variablesTest2 = navigation.getParam('chihaja2');
-     
-    if(variablesTest && variablesTest2){
-      this.setModalVisible(true);
-    }
-
     const newArray = [];
     var query = firebase.database().ref(`projects/`+firebase.auth().currentUser.uid).orderByKey();
     query.once("value")
@@ -163,7 +155,7 @@ const styles = StyleSheet.create({
   modalView: {
     margin: 20,
     backgroundColor: "white",
-    borderRadius: 35,
+    borderRadius: 20,
     padding: 15,
     
     shadowColor: "#000",
