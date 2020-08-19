@@ -11,7 +11,7 @@
     ],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/EyeMetrix_logo.jpg",
+    "icon": "./assets/EYEMETRIXVF.png",
     "splash": {
       "image": "./assets/Splashscreen.png",
       "resizeMode": "contain",

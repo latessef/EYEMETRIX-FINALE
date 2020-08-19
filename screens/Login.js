@@ -15,14 +15,12 @@ import {
 } from 'react-native';
 import { Block, Checkbox, Text, Button as GaButton, theme, Input as GaInput } from 'galio-framework';
 import { Button, Icon, Input} from '../components';
-import { LinearGradient } from 'expo-linear-gradient';
 const { height, width } = Dimensions.get('screen');
 import { Images, nowTheme } from '../constants';
 import { HeaderHeight } from '../constants/utils';
 import Loading from 'react-native-whc-loading';
 import firebase from '../database/firebase';
-
-
+import {storeData} from "./InternStorage";
 
 export default class Login extends React.Component {
   constructor() {
@@ -63,7 +61,7 @@ export default class Login extends React.Component {
       .signInWithEmailAndPassword(this.state.email, this.state.password)
       .then((res) => {
         if(res.user.emailVerified=== true){
-        console.log(res)
+        storeData(res.user.uid);
         console.log('User logged-in successfully!')
         this.setState({
           email: '', 

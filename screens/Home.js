@@ -11,12 +11,8 @@ import WeekSelector from 'react-native-week-selector';
 import 'moment/locale/fr';
 import Moment from 'moment';
 import {Text} from "galio-framework";
-import { array, element } from "prop-types";
-import Icon from '../components/Icon';
-import { BorderlessButton } from "react-native-gesture-handler";
-import {sendPushNotification} from "./Notifunction";
-
-const { width, height } = Dimensions.get("screen");
+import {getData} from "./InternStorage";
+const { width, height } = Dimensions.get("window");
 
 
 
@@ -224,9 +220,11 @@ class User extends React.Component {
 export default class Home extends React.Component {
   constructor() {
     super();
+
     this.state={
       type : '',
       list : [],
+      uid : '',
 
     }
   }
@@ -235,7 +233,13 @@ export default class Home extends React.Component {
   addNewProject = (navigation) =>{
      navigation.push('Projects',{chihaja : true, chihaja2 : true});
   }
-  UNSAFE_componentWillMount(){
+  JUSTDATE = async () =>{
+    const data = await getData()
+    this.setState({ uid : data});
+    console.log("DATA = ",data);
+  }
+  async UNSAFE_componentWillMount(){
+    this.JUSTDATE();
     this.focusListener = this.props.navigation.addListener('didFocus', () => {
       firebase.database().ref(`users/`+firebase.auth().currentUser.uid+`/type`).on('value', snapshot => {
         this.setState({
@@ -256,12 +260,12 @@ export default class Home extends React.Component {
   }
   
    Top5Display() {
-    return (<Text  style={styles.TopfiveTitle} color={nowTheme.COLORS.BLACK}>top 5</Text>);
-     {/* <Block> <Text  style={styles.TopfiveTitle} color={nowTheme.COLORS.BLACK}>top 5</Text>
-      <ScrollView> <Block >
+    return (
+    <Block><Text style={styles.TopfiveTitle} color={nowTheme.COLORS.BLACK}>top 5 </Text>
+      <ScrollView><Block >
          <PieChartB />
-      </Block> </ScrollView>
-    </Block> */}
+      </Block></ScrollView>
+    </Block>);
       
   }
   isEmpty(navigation){
@@ -276,7 +280,7 @@ export default class Home extends React.Component {
   componentWillUnmount() {
     this.focusListener.remove();
   }
-  render() {
+  render() {    
     const { navigation } = this.props;
     // if(this.state.type === "admin" ){
 
@@ -285,7 +289,6 @@ export default class Home extends React.Component {
         
         <Block flex style = {{height: height * 0.82, flexDirection:'column'}}>    
          <View>{ this.isEmpty(navigation)}</View>
-         <Button onPress={() => sendPushNotification('ExponentPushToken[PMhqiEL6lxHaC9wB7lBihw]')}> Send </Button>
         </Block> 
       );
     // }else{

@@ -7,6 +7,7 @@ import { DrawerItem } from '../components/index';
 import firebase from '../database/firebase';
 import nowTheme from '../constants/Theme';
 import { Images } from '../constants';
+import {removeValue} from "../screens/InternStorage";
 // import Loading from 'react-native-whc-loading';
 
 const { width } = Dimensions.get('screen');
@@ -40,7 +41,7 @@ const Drawer = props => (
     <Block flex>
       <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
         <DrawerNavigatorItems {...props} />
-        <TouchableOpacity  onPress={() => {signOut(props);props.navigation.closeDrawer();}}
+        <TouchableOpacity  onPress={() => {signOut(props);props.navigation.closeDrawer();removeValue();}}
           style={{ marginLeft: 10, fontFamily: 'montserrat-regular' }}
         >
           {/* <Loading 
