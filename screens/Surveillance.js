@@ -24,17 +24,27 @@ class Surveillance extends React.Component {
       // console.log(id)
       var query = await firebase.database().ref(`projects/`+firebase.auth().currentUser.uid+`/`+id+`/flux/`).orderByKey();
       var newArray = [];
+      var counter ;
       query.on('value', snapshot => {
           newArray = [];
+          counter = 0;
           snapshot.forEach((childSnapshot) => {
-            var key = childSnapshot.key;
-            var sortants = childSnapshot.val().sortants;
-            var entrants = childSnapshot.val().entrants;
-            var date = childSnapshot.val().date;
-            var personnes = childSnapshot.val().personnes;
-            const obj = {'key' : key, 'Entrants': entrants, 'Sortants': sortants, 'date': date,'cta': "Detail sur les personnes", 'personnes' : personnes}
-            newArray.push(obj);
-          });
+            var date = childSnapshot.key;
+          if(date !== 'entrants' && date !== 'sortants'){
+              var sortants = childSnapshot.child('personnes').child('sortants').numChildren();
+              var entrants = childSnapshot.child('personnes').child('entrants').numChildren();
+              var personnes = [];
+              childSnapshot.child('personnes').child('sortants').forEach( per => {
+                personnes.push({'key': per.key, 'name': per.val(), 'action': 'Sortie'});
+              })
+              childSnapshot.child('personnes').child('entrants').forEach( per => {
+                personnes.push({'key': per.key, 'name': per.val(), 'action': 'Entrée'});
+              })
+              personnes.sort((a,b) => (a.key > b.key) ? 1 : -1)
+              const obj = {'key' : counter++, 'Entrants': entrants, 'Sortants': sortants, 'date': date,'cta': "Detail sur les personnes", 'personnes' : personnes}
+              newArray.push(obj);
+          }
+              });
           this.setState({
             list: newArray,
             isLoading : false,

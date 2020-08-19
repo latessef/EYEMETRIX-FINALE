@@ -26,9 +26,9 @@ class CardSurv extends React.Component {
    const {item} = this.props;
    return (
     <ScrollView>
-        <Text style = {styles.Titre}> L(es) entrant(s) / sortante(s) :</Text>
+        <Text style = {styles.Titre}> L(es) entrant(es) / sortant(es) :</Text>
         {item.personnes.map((item,key) => (
-          <Text key = {key} style = {styles.Per}>{key}/ {item}</Text>
+          <Text key = {item.key} style = {styles.Per}>{item.key}/ {item.name} : {item.action}</Text>
         ))}
     </ScrollView>
 
@@ -116,8 +116,8 @@ class CardSurv extends React.Component {
                 <Icon 
                     size={20}
                     color="black"
-                    name="closecircleo"
-                    family="AntDesign"
+                    name="close"
+                    family="EvilIcons"
                 />
               </TouchableOpacity>
                 <this.Personne/>
